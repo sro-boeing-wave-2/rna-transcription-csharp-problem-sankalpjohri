@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RNATranscriptionModule
 {
@@ -14,15 +15,11 @@ namespace RNATranscriptionModule
 
         public static string ToRna(string nucleotide)
         {
-            String rnaString = "";
             if (!String.IsNullOrWhiteSpace(nucleotide))
-            {
-                foreach (char c in nucleotide)
-                {
-                    rnaString = rnaMapping.ContainsKey(c) ? String.Concat(rnaString, rnaMapping[c]) : rnaString;
-                }
+            {   
+                return new String(nucleotide.Where(ch => rnaMapping.ContainsKey(ch)).Select(ch => rnaMapping[ch]).ToArray());
             }
-            return rnaString;
+            return nucleotide;
         }
     }
 }
